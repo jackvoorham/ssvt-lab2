@@ -21,8 +21,7 @@ isPermutation :: Eq a => [a] -> [a] -> Bool
 
 isPermutation [] [] = True 
 
-isPermutation xs xs' | head xs `elem` xs' = isPermutation (tail xs) (delete (head xs) xs')
-                     | null xs = True
-                     | otherwise = False
+isPermutation xs xs' | length xs /= length xs' = False
+                     | head xs `elem` xs' = isPermutation (tail xs) (delete (head xs) xs')
                    
-test = isPermutation [1,2,3] [3,2,1]
+test = isPermutation [1,2] [3,2,1]
