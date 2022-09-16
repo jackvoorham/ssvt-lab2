@@ -33,7 +33,7 @@ checkQuartileRanges xs = length xs == 10000 ==> check where
 -- Generates only positive integers, but modified to make it generate only 10000
 -- From: https://stackoverflow.com/a/39292322
 genPos :: Gen Int
-genPos = abs `fmap` (arbitrary :: Gen Int) `suchThat` (== 10000)
+genPos = return 10000
 
 -- Tests the probs function distribution.  Parameter x is the length we want to test, for us this is 10000
 probsTest :: [Float] -> Property
