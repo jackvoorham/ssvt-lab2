@@ -57,3 +57,5 @@ main = do
 -- Time spent: 3 hours
 
 -- We had no idea how to further test the function because it already has such little abstraction.
+-- +++ OK, passed 100 tests.
+-- +++ OK, passed 100 tests; 17 discarded.
