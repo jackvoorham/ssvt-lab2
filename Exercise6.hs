@@ -13,6 +13,8 @@ p --> q = (not p) || q
 forall :: [a] -> (a -> Bool) -> Bool
 forall = flip all
 
+----------------------------
+
 rot13 :: [Char] -> [Char]
 rot13 [] = []
 rot13 (x:xs) 

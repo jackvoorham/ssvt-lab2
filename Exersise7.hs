@@ -35,12 +35,15 @@ convertCharsToInteger :: String -> String
 convertCharsToInteger [] = []
 convertCharsToInteger (x : str) | ord x >= 65 && ord x <= 95 = show (ord x - 55) ++ convertCharsToInteger str
                                 | otherwise = x : convertCharsToInteger str
-
 main = do
     all iban correctIBANS
 
 -----------------------------
+    
 -- Time spent: 2 hours
 
 -- To automate the testing process one should write a generator that creates correct IBAN numbers, to create incorrect ones one can mutate correct IBAN's slightly
 -- One can base such generator on the ISO's of the IBAN specification
+
+-- Test rapport:
+-- True
