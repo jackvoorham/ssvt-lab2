@@ -31,13 +31,6 @@ prop2 x = even' x || x > 3
 prop3 :: Int -> Bool
 prop3 x = (even' x && x > 3) || even' x
 
--- the properties themselves weren't hard too implement.
--- the descending list took a bit longer since we couldn't figure out how to print a function
--- and after that the IO again gave a lot of problems with us just wanting to call the insertElem function from main (which we couldn't).
--- We fixed this by creating multiple let's (surely can be done more clean but we don't know how).
--- The output of the program gives: ["prop1","prop3","even'","prop2"], which means prop1 is the strongest and prop2 the weakest in the range [-10..10]
--- Time spend: 2 hours
-
 funcName :: String -> (Int -> Bool)
 funcName f
     | f == "even'" = even'
@@ -58,3 +51,12 @@ main = do
     let list3 = insertElem list2 "prop2"
     let list4 = insertElem list3 "prop3"
     print (list4)
+
+-----------------------------
+
+-- the properties themselves weren't hard too implement.
+-- the descending list took a bit longer since we couldn't figure out how to print a function
+-- and after that the IO again gave a lot of problems with us just wanting to call the insertElem function from main (which we couldn't).
+-- We fixed this by creating multiple let's (surely can be done more clean but we don't know how).
+-- The output of the program gives: ["prop1","prop3","even'","prop2"], which means prop1 is the strongest and prop2 the weakest in the range [-10..10]
+-- Time spend: 2 hours
