@@ -22,13 +22,11 @@ probs n = do
 
 testProbs :: [Float] -> (Float, Float, Float, Float) -> (Float, Float, Float, Float) 
 testProbs [] (a,b,c,d) = (a,b,c,d)
-testProbs (x:xs) (a, b, c, d) = if x < 0.25 && x > 0
-                                    then testProbs (xs) (a+1,b,c,d)
-                                    else if x < 0.5
-                                        then testProbs (xs) (a,b+1,c,d)
-                                        else if x < 0.75
-                                            then testProbs (xs) (a,b,c+1,d)
-                                            else testProbs (xs) (a,b,c,d+1)
+testProbs (x:xs) (a, b, c, d) 
+    | x < 0.25 && x > 0 = testProbs (xs) (a+1,b,c,d)
+    | x < 0.5 = testProbs (xs) (a,b+1,c,d)
+    | x < 0.75 = testProbs (xs) (a,b,c+1,d)
+    | otherwise = testProbs (xs) (a,b,c,d+1)
 
 testFloat :: (Float, Float, Float, Float) -> Bool
 testFloat (a, b, c, d) = if a >= 2400 && a <= 2600 && b >= 2400 && b <= 2600 && c >= 2400 && c <= 2600 && d >= 2400 && d <= 2600
