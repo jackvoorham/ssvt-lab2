@@ -45,6 +45,8 @@ main = do
     quickCheck $ forAll genPos probsTest
 
 -----------------------------
+-- Time spent: 4hours, 1 hours of implementation of functions, 2.5 hours trying to write a safe test, 
+-- 0.5 hours current test
 
 -- Test rapport (Checked with [2300-2700] as the accepted range): 
 -- +++ OK, passed 100 tests.
