@@ -16,13 +16,13 @@ probs n = do
             ps <- probs (n-1)
             return (p:ps)
 
--- https://stackoverflow.com/questions/9722689/haskell-how-to-map-a-tuple
-fourTupleMap :: (a -> b) -> (a, a, a, a) -> (b, b, b, b)
-fourTupleMap f (a1,a2,a3,a4) = (f a1, f a2, f a3, f a4)
+-- The actual assignment didn't take that long, it was the IO part that gave so much errors that it took a couple of hours.
+-- The eventual test can be made better but for now this works.
+-- Time spend: 4 hours.
 
 testProbs :: [Float] -> (Float, Float, Float, Float) -> (Float, Float, Float, Float) 
-testProbs [] (a,b,c,d) = fourTupleMap (/ (a+b+c+d)) (a,b,c,d)
-testProbs (x:xs) (a, b, c, d) = if x < 0.25
+testProbs [] (a,b,c,d) = (a,b,c,d)
+testProbs (x:xs) (a, b, c, d) = if x < 0.25 && x > 0
                                     then testProbs (xs) (a+1,b,c,d)
                                     else if x < 0.5
                                         then testProbs (xs) (a,b+1,c,d)
@@ -30,7 +30,12 @@ testProbs (x:xs) (a, b, c, d) = if x < 0.25
                                             then testProbs (xs) (a,b,c+1,d)
                                             else testProbs (xs) (a,b,c,d+1)
 
-main :: IO (Float, Float, Float, Float)
+testFloat :: (Float, Float, Float, Float) -> Bool
+testFloat (a, b, c, d) = if a >= 2400 && a <= 2600 && b >= 2400 && b <= 2600 && c >= 2400 && c <= 2600 && d >= 2400 && d <= 2600
+                            then True
+                            else False
+
+main :: IO Bool
 main = do
     temp <- probs 10000
-    return (testProbs temp (0,0,0,0))
+    return (testFloat (testProbs temp (0,0,0,0)))
