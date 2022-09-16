@@ -30,8 +30,7 @@ checkQuartileRanges xs = length xs == 10000 ==> check where
     l = length $ filter (\x -> x >= 0.75 && x <= 1) xs
     check = i `elem` range && j `elem` range && k `elem` range && l `elem` range
 
--- Generates only positive integers, but modified to make it generate only 10000
--- From: https://stackoverflow.com/a/39292322
+-- Generates only 10000
 genPos :: Gen Int
 genPos = return 10000
 
