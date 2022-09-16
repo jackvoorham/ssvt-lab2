@@ -23,7 +23,7 @@ probs n = do
 -- distributed w.r.t to the specified range
 checkQuartileRanges :: [Float] -> Property
 checkQuartileRanges xs = length xs == 10000 ==> check where
-    range = [2300..2700] -- The accepted range
+    range = [2350..2650] -- The accepted range
     i = length $ filter (\x -> x >= 0 && x <= 0.25) xs
     j = length $ filter (\x -> x >= 0.25 && x <= 0.5) xs
     k = length $ filter (\x -> x >= 0.5 && x <= 0.75) xs   
@@ -45,6 +45,8 @@ main = do
     quickCheck $ forAll genPos probsTest
 
 -----------------------------
+-- Time spent: 4hours, 1 hours of implementation of functions, 2.5 hours trying to write a safe test, 
+-- 0.5 hours current test
 
 -- Test rapport (Checked with [2300-2700] as the accepted range): 
 -- +++ OK, passed 100 tests.
