@@ -57,10 +57,22 @@ main = do
     putStrLn "Testing propertyReversedList"
     quickCheck (propertyReversedList :: [Int] -> Bool)
     putStrLn "Testing propertyTailedList"
-    quickCheck $ forAll arbitraryList (propertyTailedList :: [Int] -> Bool)
+    quickCheck $ forAll arbitraryList (propertyTailedList :: [Int] -> Bool) 
 
 ----------------------------
+-- Time spent: 3 hours
 
 -- Questions
 -- Q: Next, define some testable properties for this function, and use a number of well-chosen lists to test isPermutation. You may assume that your input lists do not contain duplicates. What does this mean for your testing procedure?
--- A: 
+-- A: It does not impact my testing procedure, as the non-duplicate lists are a subset of all lists, so it must also hold that they work if we have tests that work when generating all lists 
+
+-- Q: Provide an ordered list of properties by strength using the weaker and stronger definitions.
+-- A: For my properties the list would be as follows, from weakest to strongest -> [propertySameList, propertyReversedList, PropertyTailedList] as the PropertyTailedList is more restrictive as it does not accept the empty list
+
+-- Test rapport:
+-- Testing propertySameList
+-- +++ OK, passed 100 tests.
+-- Testing propertyReversedList
+-- +++ OK, passed 100 tests.
+-- Testing propertyTailedList
+-- +++ OK, passed 100 tests.
