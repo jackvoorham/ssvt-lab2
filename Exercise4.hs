@@ -1,3 +1,5 @@
+-- Github: https://github.com/jackvoorham/ssvt-lab2
+
 module Exercise4 where
 import Data.List
 import Data.Char
@@ -60,6 +62,7 @@ main = do
     quickCheck $ forAll arbitraryList (propertyTailedList :: [Int] -> Bool)
 
 ----------------------------
+
 -- Time spent: 3 hours
 
 -- Questions

@@ -1,6 +1,6 @@
--- Base code imported from Lab 2 at https://canvas.uva.nl/courses/32483/files/7147684?wrap=1&fd_cookie_set=1
-module Exercise6 where
+-- Github: https://github.com/jackvoorham/ssvt-lab2
 
+module Exercise6 where
 import Data.List
 import Data.Char
 import System.Random

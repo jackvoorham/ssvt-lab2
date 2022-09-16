@@ -1,8 +1,12 @@
+-- Github: https://github.com/jackvoorham/ssvt-lab2
+
 module Exercise2 where
 import Data.List
 import Data.Char
 import System.Random
 import Test.QuickCheck
+
+-----------------------------
 
 infix 1 -->
 (-->) :: Bool -> Bool -> Bool
@@ -65,24 +69,25 @@ triangle n m k
 main :: IO()
 main = do
     putStrLn "== Equilateral ==";
-    quickCheck $ forAll genPos $ \x -> (triangle x x x) == Equilateral;
+    quickCheck $ forAll genPos $ \x -> triangle x x x == Equilateral;
     putStrLn "== NoTriangle ==";
-    quickCheck $ forAll genNoTriangleTriplet $ \(x, y, z) -> (triangle x y z) == NoTriangle;
+    quickCheck $ forAll genNoTriangleTriplet $ \(x, y, z) -> triangle x y z == NoTriangle;
     --putStrLn "== Rectangular ==";
     --quickCheck $ forAll genRectangularTriplet $ \(x, y, z) -> (triangle x y z) == Rectangular;
     putStrLn "== Isosceles ==";
-    quickCheck $ forAll genIsoscelesTriplet $ \(x, y, z) -> (triangle x y z) == Isosceles;
+    quickCheck $ forAll genIsoscelesTriplet $ \(x, y, z) -> triangle x y z == Isosceles;
     putStrLn "== Other ==";
-    quickCheck $ forAll genOtherTriplet $ \(x, y, z) -> (triangle x y z) == Other;
+    quickCheck $ forAll genOtherTriplet $ \(x, y, z) -> triangle x y z == Other;
 
 -----------------------------
+   
+-- Time spent: 3h 
+
 -- I had to first read up on haskell datatypes.
 -- Then I had to first find the rules for each type of triangle.
 -- Afterwards it was quite simple to implement each rule in the correct order.
--- Time spent: 1h.
--- But then I had to write test cases...
+-- But then I had to write test cases, which took 2 hours...
 -- It was difficult to write a generator for the pythagorean triplet.
--- Time spent on writing tests: 2h.
 
 -- Test rapport
 -- == Equilateral ==

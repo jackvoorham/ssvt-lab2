@@ -1,10 +1,12 @@
+-- Github: https://github.com/jackvoorham/ssvt-lab2
+
 module Exercise3 where
 import Data.List
 import Data.Char
 import System.Random
 import Test.QuickCheck
 
--- Base code imported from Lab 2 at https://canvas.uva.nl/courses/32483/files/7147684?wrap=1&fd_cookie_set=1
+-----------------------------
 
 infix 1 -->
 
@@ -54,9 +56,10 @@ main = do
 
 -----------------------------
 
+-- Time spent: 2 hours
+
 -- the properties themselves weren't hard too implement.
 -- the descending list took a bit longer since we couldn't figure out how to print a function
 -- and after that the IO again gave a lot of problems with us just wanting to call the insertElem function from main (which we couldn't).
 -- We fixed this by creating multiple let's (surely can be done more clean but we don't know how).
 -- The output of the program gives: ["prop1","prop3","even'","prop2"], which means prop1 is the strongest and prop2 the weakest in the range [-10..10]
--- Time spend: 2 hours

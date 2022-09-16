@@ -1,3 +1,5 @@
+-- Github: https://github.com/jackvoorham/ssvt-lab2
+
 module Exercise1 where
 import Data.List
 import Data.Char
@@ -44,6 +46,8 @@ main = do
                                                    return $ checkQuartileRanges xs
 
 -----------------------------
+
+-- Time spent: 3 hours
 
 -- Test rapport (Checked with [2300-2700] as the accepted range):
 -- +++ OK, passed 100 tests.

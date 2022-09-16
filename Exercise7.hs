@@ -1,5 +1,6 @@
-module Exersise7 where
+-- Github: https://github.com/jackvoorham/ssvt-lab2
 
+module Exercise7 where
 import Data.List
 import Data.Char
 import System.Random
