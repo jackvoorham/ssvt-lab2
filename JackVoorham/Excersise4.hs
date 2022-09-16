@@ -1,4 +1,4 @@
-module Excersise5 where
+module Excersise4 where
 import Data.List
 import Data.Char
 import System.Random
@@ -23,5 +23,8 @@ isPermutation [] [] = True
 
 isPermutation xs xs' | length xs /= length xs' = False
                      | head xs `elem` xs' = isPermutation (tail xs) (delete (head xs) xs')
-                   
-test = isPermutation [1,2] [3,2,1]
+                
+
+-- Questions
+-- Q: Next, define some testable properties for this function, and use a number of well-chosen lists to test isPermutation. You may assume that your input lists do not contain duplicates. What does this mean for your testing procedure?
+-- A: 
