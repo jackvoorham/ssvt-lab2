@@ -39,16 +39,6 @@ propertyReversedList xs = isPermutation xs (reverse xs)
 propertyTailedList :: Eq a => [a] -> Bool 
 propertyTailedList xs = not (isPermutation xs (tail xs))
 
--- Arbitrary list generator for non-empty lists 
--- From: https://www.stackbuilders.com/blog/a-quickcheck-tutorial-generators/
--- Modified to make it generate only non-empty lists
-arbitraryList :: Arbitrary a => Gen [a]
-arbitraryList =
-  sized $
-    \n -> do
-      k <- choose (1, n)
-      sequence [ arbitrary | _ <- [0..k] ]
-
 -- We test the property's on integer list, if we test on it it should work with any type because of parametricity
 -- Src: https://stackoverflow.com/a/7149859
 main = do
@@ -57,10 +47,11 @@ main = do
     putStrLn "Testing propertyReversedList"
     quickCheck (propertyReversedList :: [Int] -> Bool)
     putStrLn "Testing propertyTailedList"
-    quickCheck $ forAll arbitraryList (propertyTailedList :: [Int] -> Bool)
+    quickCheck (propertyTailedList :: [Int] -> Bool)
 
 ----------------------------
 
 -- Questions
 -- Q: Next, define some testable properties for this function, and use a number of well-chosen lists to test isPermutation. You may assume that your input lists do not contain duplicates. What does this mean for your testing procedure?
 -- A: 
+
