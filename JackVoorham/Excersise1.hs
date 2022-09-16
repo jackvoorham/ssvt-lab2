@@ -2,6 +2,8 @@ module Excersise1 where
 import Data.List
 import Data.Char
 import System.Random
+import System.IO.Unsafe
+import Test.QuickCheck
 
 infix 1 -->
 (-->) :: Bool -> Bool -> Bool
@@ -16,18 +18,32 @@ probs n = do
 
 ----------------------------
 
-checkQuartileTuple :: [Float] -> Bool
-checkQuartileTuple xs = check where
-    range = [2400..2600] -- The accepted range
+checkQuartileRanges :: [Float] -> Property
+checkQuartileRanges xs = length xs == 10000 ==> check where
+    range = [2300..2700] -- The accepted range
     i = length $ filter (\x -> x >= 0 && x <= 0.25) xs
     j = length $ filter (\x -> x >= 0.25 && x <= 0.5) xs
     k = length $ filter (\x -> x >= 0.5 && x <= 0.75) xs   
     l = length $ filter (\x -> x >= 0.75 && x <= 1) xs
     check = i `elem` range && j `elem` range && k `elem` range && l `elem` range
+    
+-- Generates only positive integers, but modified to make it generate only 10000
+-- From: https://stackoverflow.com/a/39292322
+genPos :: Gen Int
+genPos = abs `fmap` (arbitrary :: Gen Int) `suchThat` (== 10000)
 
+-- Tests the probs function distribution
+-- Parameter x is the length we want to test, for us this is 10000
+probsTest x = check
+    where     
+        xs = unsafePerformIO(probs x)
+        check = checkQuartileRanges xs
 
-main :: IO()
 main = do 
-    xs <- probs 10000
-    let result = checkQuartileTuple xs
-    print(result)
+    quickCheck $ forAll genPos probsTest
+
+-----------------------------
+
+-- Test rapport:
+-- Checked with [2300-2700] as the accepted range 
+-- +++ OK, passed 100 tests.
