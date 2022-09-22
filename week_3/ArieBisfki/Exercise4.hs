@@ -4,7 +4,7 @@ import Data.Char
 import Data.Maybe
 import Text.Printf
 import Lecture3
-import Lab3
+import Exercise1
 import Test.QuickCheck
 
 genForm :: Gen Form
