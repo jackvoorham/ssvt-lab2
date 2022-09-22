@@ -7,6 +7,9 @@ import Lecture3
 import Exercise1
 import Test.QuickCheck
 
+instance Arbitrary Form where
+    arbitrary = genForm
+
 genForm :: Gen Form
 genForm = do
     depth <- choose(0, 10) :: Gen Int
