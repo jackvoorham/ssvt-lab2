@@ -1,4 +1,4 @@
-module Exercise4 where
+module FormGen where
 import Data.List
 import Data.Char
 import Data.Maybe
