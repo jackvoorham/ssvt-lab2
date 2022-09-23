@@ -3,11 +3,6 @@ import Test.QuickCheck
 import SetOrd
 import FormGen -- Change to import Exercise4
 
--- Notes for myself:
--- A subformula is subset of the formula, the sub function finds them all
--- First intiution, the set of all subformola of a formula f also contains the formula f itself
--- Second, all sub's of the entries in sub are also in sub, that is, if f is a subset of sub and f' is a subset of the sub of f then f' is also in the sub of f
-
 sub :: Form -> Set Form
 sub (Prop x) = Set [Prop x]
 sub (Neg f) = unionSet (Set [Neg f]) (sub f)
@@ -16,10 +11,11 @@ sub f@(Dsj [f1,f2]) = unionSet ( unionSet (Set [f]) (sub f1)) (sub f2)
 sub f@(Impl f1 f2) = unionSet ( unionSet (Set [f]) (sub f1)) (sub f2)
 sub f@(Equiv f1 f2) = unionSet ( unionSet (Set [f]) (sub f1)) (sub f2)
 
+-- Property one of sub; The formula f is a subset of the subformulas of f
 subPropertyOne :: Form -> Bool
 subPropertyOne x = inSet x subForms where
     subForms = sub x
-
+    
 -- Removes duplicates from a list
 -- Retrieved from: https://stackoverflow.com/a/31151043
 myNub :: (Eq a) => [a] -> [a]
