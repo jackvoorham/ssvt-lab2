@@ -20,7 +20,7 @@ genForm' depth = if depth == 0
     then genProp
     else do
         form <- genForm' $ depth - 1
-        fType <- choose(0, 2) :: Gen Int
+        fType <- choose(0, 4) :: Gen Int
         case fType of
             0 -> genNeg $ depth - 1
             1 -> genCnj $ depth - 1
