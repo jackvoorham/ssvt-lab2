@@ -39,14 +39,14 @@ subList f@(Equiv f1 f2) = (f : subList f1) ++ subList f2
 -- Takes a form, calls the subList function which creates a list from the subformulas
 -- make entries unique in that list, the length of this list is then the number of
 -- subformula's
-subn :: Form -> Int
-subn f = length $ myNub (subList f)
+nsub :: Form -> Int
+nsub f = length $ myNub (subList f)
 
 -- Very trivial test, i dont know how to test it more rigorously...
-checkSubn :: String
-checkSubn | all (\x -> subn x == 7) [form1, form2] = "+++ Passed subn test."
-          | otherwise = "+++ Did not pass subn test." 
+checkNsub :: String
+checkNsub | all (\x -> nsub x == 7) [form1, form2] = "+++ Passed nsub test."
+          | otherwise = "+++ Did not pass nsub test." 
         
 main = do
-    putStrLn checkSubn
+    putStrLn checkNsub
     quickCheck $ forAll genForm subPropertyOne
