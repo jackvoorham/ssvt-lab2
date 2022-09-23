@@ -5,14 +5,27 @@ import Data.Maybe
 import Text.Printf
 import Lecture3
 import Exercise1
+import Exercise3
 import Test.QuickCheck
+
+-- I had to first decide between writing a generator for quickcheck or some other way.
+-- I decided on quickcheck as I did not know any other way.
+-- I then set out to inform myself on the different methods for writing a generator, such as choose.
+-- I did this via youtube videos.
+-- I was afterwards able to implement the generator, which isn't perfect in terms of
+-- distributing probabilities equality among the different Form types but it works for our purpose.
+
+-- Test report on cnf equivalence:
+-- +++ OK, passed 100 tests.
+
+-- Time spent: 240 minutes --
 
 instance Arbitrary Form where
     arbitrary = genForm
 
 genForm :: Gen Form
 genForm = do
-    depth <- choose(0, 10) :: Gen Int
+    depth <- choose(0, 5) :: Gen Int
     genForm' depth
 
 genForm' :: Int -> Gen Form
@@ -64,3 +77,9 @@ genEquiv depth = do
 
 genForms :: Int -> Int -> Gen [Form]
 genForms depth amount = sequence $ map (\i -> genForm' depth) [0..amount-1]
+
+propCnf :: Form -> Bool
+propCnf f = f `equiv` (cnf f)
+
+main :: IO()
+main = quickCheck propCnf
