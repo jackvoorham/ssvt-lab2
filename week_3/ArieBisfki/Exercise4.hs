@@ -63,4 +63,4 @@ genEquiv depth = do
     return $ Equiv form1 form2
 
 genForms :: Int -> Int -> Gen [Form]
-genForms depth amount = sequence $ map (\i -> genForm' depth) [0..amount]
+genForms depth amount = sequence $ map (\i -> genForm' depth) [0..amount-1]
