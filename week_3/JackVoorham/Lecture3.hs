@@ -127,6 +127,7 @@ r = Prop 3
 form1 = Equiv (Impl p q) (Impl (Neg q) (Neg p))
 form2 = Equiv (Impl p q) (Impl (Neg p) (Neg q))
 form3 = Impl (Cnj [Impl p q, Impl q r]) (Impl p r)
+form4 = Cnj [Prop 3, Prop 4, Prop 2]
 
 propNames :: Form -> [Name]
 propNames = sort.nub.pnames where 
