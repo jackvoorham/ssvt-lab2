@@ -1,5 +1,4 @@
 module Exercise2 where
-
 import Lecture3
 import Test.QuickCheck
 import Exercise4
