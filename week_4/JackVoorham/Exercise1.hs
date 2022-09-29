@@ -31,5 +31,3 @@ validateLTS (states, inLabels, outLabels, transitions, initialState) | null stat
                                                                      | otherwise = False
 
 test = all validateLTS [coffeeImpl1, coffeeImpl2, coffeeImpl3, coffeeImpl4, coffeeImpl5, coffeeImpl6]
-
-
