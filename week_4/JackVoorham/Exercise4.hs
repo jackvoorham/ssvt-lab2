@@ -14,16 +14,19 @@ import Debug.Trace
 getQ' :: [LabeledTransition] -> Label -> State -> [State]
 getQ' xs l initialState = [i | (_,_,i) <- xs']
         where
-                xs' = (filter (\(x,y,_) -> (y == l) && (x == initialState)) xs)
+                xs' = filter (\ (x, y, _) -> (y == l) && (x == initialState)) xs
 
-after :: [Label] -> LTS -> [State]
-after [] r = []
-after l r = qPrimes ++ concat (map (after tailed) [ (states, labels, transitions, i) | i <- qPrimes])
+after' :: [Label] -> LTS -> [[State]]
+after' [] r = []
+after' l r = qPrimes : concatMap (after' tailed) ([(states, labels, transitions, i) | i <- qPrimes])
         where 
                 (states, labels, transitions, initialState) = r
                 label = head l
                 tailed = tail l
                 qPrimes = getQ' transitions label initialState -- one
 
-tt = after ["but"] tretmanR
+after :: LTS -> [Label] -> [State]
+after r l = last (after' l r)
+
+tt = after tretmanR ["but", "but", "choc"]
 -- ([0,1,2,3,4,5],["but","choc","liq"],[(0,"but",1),(0,"but",2),(1,"liq",3),(2,"but",4),(4,"choc",5)],0)
