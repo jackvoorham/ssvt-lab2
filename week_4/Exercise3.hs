@@ -6,6 +6,9 @@ import LTS
 -- I simply felt not proficient enough with functional programmning and haskell.
 -- Anyway, my plan was to first compose the finite list of traces and afterwards iterate infinitely in breadth over each of the traces to
 -- map it to an equivalent trace with delta's inserted in the right spots to produce an infinite list of suspension traces.
+-- I was finally going to test the thing by testing a few properties, such as there being no delta's before an output label,
+-- and also that the trace is actually accepted by the transition system (= that the trace leads to a state when launched from the
+-- starting state).
 
 findTransitionsByBeforeState :: IOLTS -> State -> [LabeledTransition]
 findTransitionsByBeforeState (_, _, _, labeledTransitions, _) state = filter (\(beforeState, _, _) -> beforeState == state) labeledTransitions
