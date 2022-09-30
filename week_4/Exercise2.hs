@@ -4,10 +4,6 @@ import LTS
 import Test.QuickCheck
 import Exercise1
 
--- It took really long to figure out how to use the random string generator for the labels inside the ltsList function
--- The ltsList function creates a list of n (2 to 5) lts's to be used inside the IOLTS function.
--- Time spend: 300 minutes --
-
 -- Generate labels for the transitions.
 lableGen :: Gen String
 lableGen = vectorOf 5 (elements ['a'..'z'])
@@ -75,3 +71,10 @@ main :: IO()
 main = do
     quickCheck $ forAll ltsGen testProp
     quickCheck $ forAll ltsGen' testProp'
+
+-------------------------------------------------------------------------
+
+-- It took really long to figure out how to use the random string generator for the labels inside the ltsList function
+-- The ltsList function creates a list of n (2 to 5) lts's to be used inside the IOLTS function.
+
+-- Time spend: 300 minutes --
