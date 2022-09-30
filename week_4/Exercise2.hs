@@ -1,5 +1,6 @@
+module Exercise2 where
 import Data.List
-import LTS    
+import LTS
 import Test.QuickCheck
 import Exercise1
 
@@ -20,7 +21,7 @@ ltsList counter = if counter == 0
     then do
         name <- lableGen
         let temp = (0, "?" ++ name, 1)
-        return ([temp]) 
+        return ([temp])
     else do
         temp <- (ltsList (counter -1))
         name <- lableGen
@@ -33,7 +34,7 @@ ltsList' counter = if counter == 0
     then do
         name <- lableGen
         let temp = (0, "?" ++ name, 1)
-        return ([temp]) 
+        return ([temp])
     else do
         temp <- (ltsList' (counter -1))
         name <- lableGen
@@ -46,7 +47,7 @@ ltsList' counter = if counter == 0
                 return (finalist)
             else do
                 let finalist = [(counter, "!" ++ name, counter+1)] ++ temp
-                return (finalist) 
+                return (finalist)
 
 -- generate between two and five states
 ltsGen :: Gen IOLTS
