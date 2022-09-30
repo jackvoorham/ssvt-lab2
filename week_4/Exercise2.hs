@@ -67,8 +67,8 @@ testProp n = validateLTS n == True
 testProp' :: IOLTS -> Bool
 testProp' n = validateLTS n == True
 
-main :: IO()
-main = do
+main' :: IO()
+main' = do
     quickCheck $ forAll ltsGen testProp
     quickCheck $ forAll ltsGen' testProp'
 
@@ -78,3 +78,7 @@ main = do
 -- The ltsList function creates a list of n (2 to 5) lts's to be used inside the IOLTS function.
 
 -- Time spend: 300 minutes --
+
+-- Test report, running main':
+-- +++ OK, passed 100 tests.
+-- +++ OK, passed 100 tests.
