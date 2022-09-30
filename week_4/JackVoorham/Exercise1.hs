@@ -1,9 +1,32 @@
 module Exercise1 where
+    
 import Data.List
 import LTS    
 import Test.QuickCheck
-import Debug.Trace
 
+validateTransitions :: [State] -> [Label] -> [Label] -> [LabeledTransition] -> Bool
+
+validateTransitions states inLabels outLabels [] = True
+
+-- Validate the transitions, we check if the labels, states are defined 
+validateTransitions states inLabels outLabels transitions | correctLabels && correctStates = validateTransitions states inLabels outLabels (tail transitions)
+                                                          | otherwise = False
+    where 
+    (inState, label, outState) = head transitions
+    correctStates = (inState `elem` states) && (outState `elem` states) -- Check if instate and outstate are actually in states
+    correctLabels = (label `elem` inLabels) || (label `elem` outLabels) -- Checki if label is actually in labels
+
+validateLTS :: IOLTS -> Bool 
+validateLTS (states, inLabels, outLabels, transitions, initialState) | null states = False
+                                                                     | ((initialState `elem` states) && (validateTransitions states inLabels outLabels transitions)) = True -- Check if initialState is true state, and validate transitions
+                                                                     | otherwise = False
+
+test = all validateLTS [coffeeImpl1, coffeeImpl2, coffeeImpl3, coffeeImpl4, coffeeImpl5, coffeeImpl6]
+
+main = do
+    show test
+
+-------------------------------------------------------------------------
 -- Factors that would make a IOLTS not valid
 -- 1. If >= 1 of the of the input actions is not enabled in >= 1 states
 
@@ -15,20 +38,7 @@ import Debug.Trace
 -- q_0, the initial state, a element of Q
 
 
-validateTransitions :: [State] -> [Label] -> [Label] -> [LabeledTransition] -> Bool
+-- Time spent: 180 minutes --
 
-validateTransitions states inLabels outLabels [] = True
-
-validateTransitions states inLabels outLabels transitions | correctLabels && correctStates = validateTransitions states inLabels outLabels (tail transitions)
-                                                          | otherwise = False
-    where 
-    (inState, label, outState) = head transitions
-    correctStates = (inState `elem` states) && (outState `elem` states)
-    correctLabels = (label `elem` inLabels) || (label `elem` outLabels) 
-
-validateLTS :: IOLTS -> Bool 
-validateLTS (states, inLabels, outLabels, transitions, initialState) | null states = False
-                                                                     | ((initialState `elem` states) && (validateTransitions states inLabels outLabels transitions)) = True 
-                                                                     | otherwise = False
-
-test = all validateLTS [coffeeImpl1, coffeeImpl2, coffeeImpl3, coffeeImpl4, coffeeImpl5, coffeeImpl6]
+-- test report, running main:
+-- "True"

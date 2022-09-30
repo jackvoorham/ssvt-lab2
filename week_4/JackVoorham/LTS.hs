@@ -20,7 +20,7 @@ delta = "delta"
 counterImpl :: IOLTS
 counterImpl = createIOLTS [(1, "?coin", 2), (2, "!tea", 3), (2, "!coffee", 4)]
 counterModel :: IOLTS
-counterModel = createIOLTS [(1, "?coin", 2), (1, "?coin", 3), (2, "!tea", 4), (3, "!coffee", 5)]
+counterModel = createIOLTS [(1, "?but", 2), (1, "?coin", 3), (2, "!tea", 4), (3, "!coffee", 5)]
 
 coffeeImplSimple :: LTS
 coffeeImplSimple = createLTS [(1, "coin", 2), (2, "coffee", 3)]

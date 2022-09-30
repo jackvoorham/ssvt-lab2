@@ -1,0 +1,26 @@
+module Exercise5 where
+
+import Data.List
+import LTS    
+import Test.QuickCheck
+import Debug.Trace
+
+-- ioco = any output i has been foreseen by m, i can be an IOTS (that is, always input enabled) and m is an LTS 
+-- where always input-enabled means:
+-- emtpy self loop = all input states, we dont have to loop a input state if already a q -> q'
+
+--
+-- i ioco-conforms to m, iff
+-- if i produces output x after trace σ,
+--then m can produce x after σ
+-- if i cannot produce any output after trace σ,
+--then m cannot produce any output after σ
+
+-- i ioco m = def (forall Straces s : out(i after s) subset of out(m after s))
+
+-- out(s) = the output labels from state s 
+-- "delta" when taking a self-loop
+
+-- Important difference between quiescent and ∅:
+-- we get ∅ as the output when the we have out(∅)
+-- we get quiescent output when we have no output states
