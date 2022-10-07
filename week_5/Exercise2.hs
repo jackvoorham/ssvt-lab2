@@ -5,8 +5,6 @@ import Data.List
 import Test.QuickCheck
 import Mutation
 import MultiplicationTable
-import Debug.Trace
-import System.IO.Unsafe
 
 genLength :: Gen [Bool] -> Gen Int
 genLength = fmap (length)
