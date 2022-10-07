@@ -61,7 +61,7 @@ Testing countSurvivors with reverseElements (from ex. 1) mutator... Number of su
 0
 --}
 
--- From this we see that the number of survivors is the highest when we use the removeElements mutator
+-- From this we see that the number of survivors is the highest when we use the removeElements mutator, when using all properties
 
 -- Documentation of approach:
 -- For the implementation i have just implemented the countSurvivors function with the specified type signature in the assignment and adding a parameter for the mutator function
