@@ -7,21 +7,31 @@ import MultiplicationTable
 import Debug.Trace
 import System.IO.Unsafe
 
-testAllProperties :: [[Integer] -> Integer -> Bool] -> (Gen [Integer], Integer) -> Bool
-testAllProperties (f:xs) a = ok && testAllProperties xs a
-                           where 
-                               x = unsafePerformIO (generate (fst a)) -- Extremely ugly... my Haskell knowledge is not sufficient yet
-                               y = snd a
-                               ok = f x y 
+testAllProperties :: [[Integer] -> Integer -> Bool] -> (Gen [Integer], Integer) -> Gen Bool
+testAllProperties (f:xs) a = do 
+                                x <- fst a-- Extremely ugly... my Haskell knowledge is not sufficient yet
+                                let y = snd a
+                                let ok = f x y 
 
-testAllProperties [] _ = True
+                                if ok 
+                                then testAllProperties xs a
+                                else return False
+
+testAllProperties [] _ = return True
+
+genLength :: Gen [Bool] -> Gen Int
+genLength = fmap (length)
 
 countSurvivors :: Integer -> [([Integer] -> Integer -> Bool)] -> (Integer -> [Integer]) -> Gen Integer 
-countSurvivors x y f = do
-    let x' = fromInteger x 
-    let tables = take x' [(addElements(f x), x) | x <- [1..]]
-    let tested = map (testAllProperties y) tables
-    let survivors = length(filter (==True) tested)
-    return (toInteger survivors)
+countSurvivors nMut props f = do
+    let nMut' = fromInteger nMut
+    let tables = take nMut' [(addElements(f x), x) | x <- [1..]]
+    let tested = map (testAllProperties props) tables
+    let sequenceTested = sequence tested
+    let sequenceFiltered = sequenceTested >>= \x -> return $ filter (== True) x
+    let length = genLength sequenceFiltered
+    length >>= \x -> return $ toInteger x 
     
-test = countSurvivors 4000 multiplicationTableProps multiplicationTable  
+main = do
+    test <- generate(countSurvivors 4000 multiplicationTableProps multiplicationTable)
+    print test
