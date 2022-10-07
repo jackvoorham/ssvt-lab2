@@ -66,7 +66,7 @@ Testing countSurvivors with reverseElements (from ex. 1) mutator... Number of su
 -- From this we see that the number of survivors is the highest when we use the removeElements mutator
 
 -- Documentation of approach:
--- For the implementation i have just implemented the countSurvivors function with the specified type signature in the assignment
+-- For the implementation i have just implemented the countSurvivors function with the specified type signature in the assignment and adding a parameter for the mutator function
 -- We first start with create the mutated tables on line 29, we simply take the number of muttions we want from the list of mutations of multiplication
 -- tables, then we pass each of the mutated multiplication tables to the testAllProperties function which recursively applies all the properties, and 
 -- results in True if all properties were checked succesfully. The results of applying the testAllProperties function on all of the created mutated
