@@ -20,6 +20,8 @@ type Mutator = (Output -> Gen Output)
 -- do not work on monads so I had to find or even write up my own work-arounds.
 -- I'm apparently also really bad at haskell because I would get compiler errors every 2 words. This made the
 -- time spent blow up.
+-- Results on multiplication table props: an unspecified 2 of the 5 props are sufficient. In order to make the props
+-- identifiable, I would perhaps need to process props as 2-tuples in order to store an id next to the function.
 -- Time spent: 12h
 minPropSubsets :: [Prop] -> Fut -> Gen [Prop]
 minPropSubsets props = minPropSubsets' propSubsets
