@@ -1,3 +1,5 @@
+module Exercise4 where
+
 import Data.List
 import Test.QuickCheck
 import Mutation
@@ -26,3 +28,9 @@ testStrength :: [[Integer] -> Integer -> Bool] -> ([Integer] -> Gen [Integer]) -
 testStrength xs mut = do 
     temp <- generate $ calculateStrength xs mut
     putStr ("Mutators killed: " ++ (show temp) ++ "%\n")
+    
+main = do
+    testStrength multiplicationTableProps addElements 
+ 
+-- Example output (running main)
+-- Mutators killed: 99.94%

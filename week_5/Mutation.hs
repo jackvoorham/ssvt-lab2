@@ -1,4 +1,5 @@
 module Mutation where
+
 import Test.QuickCheck
 import Data.List
 import MultiplicationTable
