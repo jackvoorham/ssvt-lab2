@@ -12,6 +12,7 @@ import MultiplicationTable
 -- This mutator is covered by the properties.
 -- These mutators also don't cover a reversed list.
 -- This mutator is also covered by the properties.
+-- Both mutators are killed by properties 2 and 4 but not by 1,3 and 5
 -- Time spend: 80 minutes --
 
 scrambleElements :: [Integer] -> Gen[Integer]
