@@ -1,3 +1,5 @@
+module Exercise2 where
+
 import Data.List
 import Test.QuickCheck
 import Mutation
@@ -14,12 +16,12 @@ testAllProperties (f:xs) a = ok && testAllProperties xs a
 
 testAllProperties [] _ = True
 
-countSurvivors :: Integer -> [([Integer] -> Integer -> Bool)] -> (Integer -> [Integer]) -> Integer 
+countSurvivors :: Integer -> [([Integer] -> Integer -> Bool)] -> (Integer -> [Integer]) -> Gen Integer 
 countSurvivors x y f = do
     let x' = fromInteger x 
     let tables = take x' [(addElements(f x), x) | x <- [1..]]
     let tested = map (testAllProperties y) tables
     let survivors = length(filter (==True) tested)
-    (toInteger survivors)
+    return (toInteger survivors)
     
 test = countSurvivors 4000 multiplicationTableProps multiplicationTable  
