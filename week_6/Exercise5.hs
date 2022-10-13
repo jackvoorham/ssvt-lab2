@@ -1,4 +1,4 @@
-module Exercise3 where
+module Exercise5 where
 import SetOrd
 import Data.List
 
@@ -10,7 +10,7 @@ infixr 5 @@
 r @@ s =
   nub [ (x,z) | (x,y) <- r, (w,z) <- s, y == w ]
 
--- We first noticed that the new @@ infix can be combined with the original list by 
+-- We first noticed that the new @@ infix can be combined with the original list by
 -- doing @@ on itself (so original rel @@ original rel) which gives the first paths.
 -- This process can then be repeated with the new set of original rel + new paths.
 -- This has to be done untill no further transitive relations can be found.

@@ -1,4 +1,4 @@
-module Excersise4 where
+module Exercise4 where
 import SetOrd
 
 type Rel a = [(a,a)]
@@ -8,7 +8,7 @@ type Rel a = [(a,a)]
 checkRelation :: Eq a => a -> [a] -> Rel a -> Bool
 checkRelation x d r = any (`elem` r) ([(x, y) | y <- d])
 
-isSerial :: Eq a => [a] -> Rel a -> Bool 
+isSerial :: Eq a => [a] -> Rel a -> Bool
 isSerial x y = all ((== True) . (\ z -> checkRelation z x y)) x
 
 -- Should be false
@@ -16,4 +16,3 @@ checkFalse = isSerial [1,2,3] [(1,3), (1,2), (2,3)]
 
 -- Should be true
 checkTrue = isSerial [1,2,3] [(1,3), (1,2), (2,3), (3,1)]
- 
