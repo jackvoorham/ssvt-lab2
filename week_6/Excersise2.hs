@@ -1,7 +1,8 @@
-module Exercise1 where
+module Exercise2 where
 import SetOrd
 import Data.List
 import Test.QuickCheck
+import Exercise1
 
 -- The union function is already given in the setOrd file. Because it is not clear whether we should
 -- implement all the functions ourselves, we decided to do both.
@@ -37,14 +38,6 @@ setDifference (Set (x:xs)) set2
     | inSet x set2 && inSet x (setIntersection (Set(x:xs)) set2) = setDifference (Set xs) set2
     | otherwise = insertSet x (setDifference (Set xs) set2)
 
-setGen :: (Arbitrary a, Ord a) => Gen (Set a)
-setGen = do
-    list <- arbitrary
-    return $ list2set list
-
-instance (Arbitrary a, Ord a) => Arbitrary (Set a) where
-  arbitrary = setGen
-
 propIntersect :: Set Int -> Set Int -> Bool
 propIntersect set1 set2 = and [subSet intersect set1, subSet intersect set2]
   where intersect = setIntersection set1 set2
@@ -58,14 +51,14 @@ propUnion' set1 set2 = and [subSet set1 union, subSet set2 union]
   where union = setUnion' set1 set2
 
 propDifference :: Set Int -> Set Int -> Bool
-propDifference set1 set2 
-  | isEmpty set1 = isEmpty (setDifference set1 set2)
-  | subSet set1 set2 = isEmpty (setDifference set1 set2)
+propDifference set1 set2
+  | isEmpty set1 = isEmpty difference
+  | subSet set1 set2 = isEmpty difference
   | otherwise = and [subSet difference set1, not (subSet difference set2)]
-      where difference = setDifference set1 set2
+  where difference = setDifference set1 set2
 
 main :: IO()
-main = do 
+main = do
   quickCheck propIntersect
   quickCheck propUnion
   quickCheck propUnion'
