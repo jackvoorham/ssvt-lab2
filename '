@@ -1,0 +1,49 @@
+module Excersise4 where
+import Test.QuickCheck
+import SetOrd
+import Data.List
+
+cartProd :: Arbitrary a => [a] -> [a] -> Gen [(a,a)]
+cartProd xs ys = do return [(x,y) | x <- xs, y <- ys]
+
+arbitraryReflexive :: Gen ([Int], Rel Int)
+arbitraryReflexive = do
+    len <- chooseInt (1, 10)
+    d <- vector len >>= \x -> return (nub x) 
+    let rel = nub (zip d d)
+    return (d, rel)
+
+type Rel a = [(a,a)]
+
+-- From excersise 1: 
+infix 1 -->
+(-->) :: Bool -> Bool -> Bool
+p --> q = (not p) || q
+ 
+checkRelation :: Eq a => a -> [a] -> Rel a -> Bool
+checkRelation x d r = any (`elem` r) ([(x, y) | y <- d])
+
+checkAllFirst :: Eq a => [a] -> Rel a -> Bool 
+checkAllFirst d (x : rel) | fst x `elem` d = checkAllFirst d rel
+                          | otherwise = False
+
+checkAllFirst _ [] = True
+
+isSerial :: Eq a => [a] -> Rel a -> Bool 
+isSerial d rel = checkAllFirst d rel && (all ((== True) . (\ z -> checkRelation z d rel)) d)
+
+propCheckLength :: Eq a =>  Eq a => ([a], Rel a) -> Bool
+propCheckLength (d, rel) = isSerial d rel --> length rel >= length d
+
+checkIsSerial :: Eq a => ([a], Rel a) -> Bool
+checkIsSerial (d, rel) = isSerial d rel
+
+main = do
+    print "Property 1: isSerial always returns true on reflexive relations."
+    verboseCheck $ forAll (arbitraryReflexive) (checkIsSerial)
+    print "Property 2: length of relation is always greater or equal to the length of domain."
+    verboseCheck $ forAll (arbitraryReflexive) (checkIsSerial)
+
+
+
+
