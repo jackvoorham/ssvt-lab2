@@ -1,4 +1,4 @@
-module Excersise4 where
+module Exercise4 where
 import SetOrd
 import Data.List
 import Control.Monad
