@@ -9,7 +9,7 @@ import Test.QuickCheck
 
 setIntersection ::   Ord a => Set a -> Set a -> Set a
 setIntersection (Set []) set2 = Set []
-setIntersection (Set (x:xs)) set2 
+setIntersection (Set (x:xs)) set2
     | inSet x set2 = insertSet x (setIntersection (Set xs) set2)
     | otherwise = setIntersection (Set xs) set2
 
@@ -28,15 +28,17 @@ setDifference (Set (x:xs)) set2
     | inSet x set2 && inSet x (setIntersection (Set(x:xs)) set2) = setDifference (Set xs) set2
     | otherwise = insertSet x (setDifference (Set xs) set2)
 
-setGen :: Gen (Set Integer)
+setGen :: (Arbitrary a, Ord a) => Gen (Set a)
 setGen = do
-    range <- choose(1, 10) :: Gen Integer
-    let lstSet = list2set [range..(range+3)]
-    return lstSet
+    list <- arbitrary
+    return $ list2set list
 
-propIntersect :: Ord a => Set a -> Set a -> Bool
-propIntersect  set1 set2 = subSet (setIntersection (set1) (set2)) set1 && subSet (setIntersection (set1) (set2)) set2
+instance (Arbitrary a, Ord a) => Arbitrary (Set a) where
+  arbitrary = setGen
 
--- main :: IO()
--- main = do
---     quickCheck $ forAll setGen propIntersect
+propIntersect :: Set Int -> Set Int -> Bool
+propIntersect set1 set2 = and [subSet intersect set1, subSet intersect set2]
+  where intersect = setIntersection set1 set2
+
+main :: IO()
+main = do quickCheck propIntersect
