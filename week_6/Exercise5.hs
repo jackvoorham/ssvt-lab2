@@ -32,5 +32,5 @@ insertRelList (x:xs) relList = insertRelList (xs) (insertRel [x] relList)
 trClos :: Ord a => Rel a -> Rel a
 trClos [] = []
 trClos rel1
-    | rel1 == (insertRelList (rel1 @@ rel1) rel1) = rel1
-    | otherwise = trClos (insertRelList (rel1 @@ rel1) rel1)
+    | rel1 == (insertRelList (rel1 @@ rel1) rel1) = nub rel1
+    | otherwise = nub $ trClos (insertRelList (rel1 @@ rel1) rel1)
